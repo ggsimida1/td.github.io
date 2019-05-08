@@ -166,31 +166,6 @@
       
         );
 		
-		//获取所有文件src用于预加载
-		 imgs = new Array();
-		 var imgsName = function () {
-		 	var isImg = (url, suffix) => url.indexOf(suffix) > 0;
-		 	var root = getRootPath();
-		 	$.ajax({
-		 		url: "/img",
-		 		success: function(data) {
-		 			$(data).find("a").each(function() {
-		 				var href = $(this).attr("href");
-		 				if (isImg(href, "jpg") || isImg(href, "JPG") || isImg(href, "png") || isImg(href, "PNG")) {
-		 					var obj = new Object();
-		 					obj.src = root + '/img/' + href;
-		 					obj.rank = parseInt(href.split(".")[0]);
-		 					if(isNaN(obj.rank))
-		 						obj.rank = 10000;
-		 					imgs.push(obj);
-		 				}
-		 			});
-		 			imgs.sort((o1,o2) => o1.rank - o2.rank);
-		 		}
-		 	});
-		 }();
-
-
         var start = function() {
             var index = 0;
             var rate = 6000;
@@ -204,20 +179,6 @@
             setInterval(_play, rate);
         }();
 		
-		
-        //获取根目录
-        function getRootPath() {
-            //获取当前网址
-            var curWwwPath = window.document.location.href;
-            //获取主机地址之后的目录
-            var pathName = window.document.location.pathname;
-            var pos = curWwwPath.indexOf(pathName);
-            //获取主机地址
-            var localhostPaht = curWwwPath.substring(0, pos);
-            //获取带"/"的项目名
-            var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
-            return (localhostPaht + projectName);
-        }
 		
 		
     });
